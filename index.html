@@ -3,16 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Aniversário Meu Amor ❤️</title>
+<title>Feliz Aniversário Iasmin ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
 height:100vh;
@@ -26,6 +22,7 @@ justify-content:center;
 align-items:center;
 color:white;
 text-align:center;
+transition:2s;
 }
 
 @keyframes gradient{
@@ -55,14 +52,15 @@ min-height:180px;
 
 button{
 margin-top:25px;
-padding:12px 25px;
+padding:14px 30px;
 border:none;
-border-radius:30px;
+border-radius:40px;
 background:white;
 color:#ff4e8b;
 font-weight:bold;
 cursor:pointer;
-transition:0.3s;
+transition:0.4s;
+font-size:16px;
 }
 
 button:hover{
@@ -74,40 +72,35 @@ from{opacity:0; transform:translateY(30px);}
 to{opacity:1; transform:translateY(0);}
 }
 
-/* CORAÇÕES */
-.heart{
+/* ESTRELAS */
+.star{
 position:absolute;
-width:20px;
-height:20px;
-background:red;
-transform:rotate(45deg);
-animation:float 6s linear infinite;
-}
-
-.heart::before,
-.heart::after{
-content:'';
-position:absolute;
-width:20px;
-height:20px;
-background:red;
+width:2px;
+height:2px;
+background:white;
 border-radius:50%;
+animation:blink 2s infinite alternate;
 }
 
-.heart::before{
-top:-10px;
-left:0;
+@keyframes blink{
+from{opacity:0.2;}
+to{opacity:1;}
 }
 
-.heart::after{
-left:-10px;
-top:0;
+/* CONSTELAÇÃO */
+.constellation{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-family:'Dancing Script',cursive;
+font-size:80px;
+color:white;
+opacity:0;
+transition:3s;
+text-shadow:0 0 10px white,0 0 20px white,0 0 40px #fff;
 }
 
-@keyframes float{
-0%{transform:translateY(100vh) rotate(45deg); opacity:1;}
-100%{transform:translateY(-10vh) rotate(45deg); opacity:0;}
-}
 </style>
 </head>
 <body>
@@ -115,8 +108,10 @@ top:0;
 <div class="container">
 <h1>Feliz Aniversário, Minha Princesa 💖</h1>
 <div class="message" id="text"></div>
-<button onclick="playMusic()">Tocar Nossa Música 🎶</button>
+<button onclick="enterUniverse()">🌙 Entrar no Nosso Universo ✨</button>
 </div>
+
+<div class="constellation" id="name">IASMIN</div>
 
 <audio id="music" loop>
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
@@ -124,21 +119,16 @@ top:0;
 
 <script>
 const message = `
+Hoje é o dia da pessoa mais especial da minha vida...
 
-Hoje é o dia da pessoa mais incrível desse mundo inteiro...
+Iasmin, você ilumina meus dias
+como estrelas iluminam o céu.
 
-Iasmin, você é a razão dos meus sorrisos mais sinceros,
-dos meus dias mais felizes
-e do meu coração bater mais forte.
+Mas agora...
+eu quero te mostrar algo diferente.
 
-Que Deus te abençoe infinitamente,
-que todos seus sonhos se realizem
-e que eu possa estar do seu lado
-em cada um deles.
-
-Eu te amo mais do que palavras conseguem explicar ❤️
-
-Feliz vida, meu amor.
+Clique abaixo
+e entre no nosso universo ❤️
 `;
 
 let i = 0;
@@ -152,27 +142,32 @@ i++;
 setTimeout(typeWriter, speed);
 }
 }
-
 typeWriter();
 
-function playMusic(){
-document.getElementById("music").play();
+function enterUniverse(){
+
+// mudar fundo
+document.body.style.background = "black";
+
+// criar estrelas
+for(let i=0;i<200;i++){
+let star = document.createElement("div");
+star.classList.add("star");
+star.style.top = Math.random()*100+"vh";
+star.style.left = Math.random()*100+"vw";
+star.style.animationDuration = (Math.random()*3+1)+"s";
+document.body.appendChild(star);
 }
 
-// gerar corações
-function createHeart(){
-const heart = document.createElement("div");
-heart.classList.add("heart");
-heart.style.left = Math.random() * 100 + "vw";
-heart.style.animationDuration = (Math.random()*3+3)+"s";
-document.body.appendChild(heart);
-
+// mostrar nome tipo constelação
 setTimeout(()=>{
-heart.remove();
-},6000);
-}
+document.getElementById("name").style.opacity = 1;
+},1500);
 
-setInterval(createHeart,300);
+// tocar música
+document.getElementById("music").play();
+
+}
 </script>
 
 </body>

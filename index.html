@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Aniversário Meu Amor ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(-45deg,#ff4e8b,#ff758c,#ff7eb3,#ffb199);
+background-size:400% 400%;
+animation:gradient 10s ease infinite;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+text-align:center;
+}
+
+@keyframes gradient{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+.container{
+width:90%;
+max-width:800px;
+z-index:2;
+}
+
+h1{
+font-family:'Dancing Script',cursive;
+font-size:60px;
+margin-bottom:20px;
+animation:fadeIn 2s ease forwards;
+}
+
+.message{
+font-size:20px;
+line-height:1.8;
+min-height:180px;
+}
+
+button{
+margin-top:25px;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:white;
+color:#ff4e8b;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* CORAÇÕES */
+.heart{
+position:absolute;
+width:20px;
+height:20px;
+background:red;
+transform:rotate(45deg);
+animation:float 6s linear infinite;
+}
+
+.heart::before,
+.heart::after{
+content:'';
+position:absolute;
+width:20px;
+height:20px;
+background:red;
+border-radius:50%;
+}
+
+.heart::before{
+top:-10px;
+left:0;
+}
+
+.heart::after{
+left:-10px;
+top:0;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh) rotate(45deg); opacity:1;}
+100%{transform:translateY(-10vh) rotate(45deg); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Feliz Aniversário, Minha Princesa 💖</h1>
+<div class="message" id="text"></div>
+<button onclick="playMusic()">Tocar Nossa Música 🎶</button>
+</div>
+
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const message = `
+
+Hoje é o dia da pessoa mais incrível desse mundo inteiro...
+
+Iasmin, você é a razão dos meus sorrisos mais sinceros,
+dos meus dias mais felizes
+e do meu coração bater mais forte.
+
+Que Deus te abençoe infinitamente,
+que todos seus sonhos se realizem
+e que eu possa estar do seu lado
+em cada um deles.
+
+Eu te amo mais do que palavras conseguem explicar ❤️
+
+Feliz vida, meu amor.
+`;
+
+let i = 0;
+const speed = 50;
+const textDiv = document.getElementById("text");
+
+function typeWriter(){
+if(i < message.length){
+textDiv.innerHTML += message.charAt(i);
+i++;
+setTimeout(typeWriter, speed);
+}
+}
+
+typeWriter();
+
+function playMusic(){
+document.getElementById("music").play();
+}
+
+// gerar corações
+function createHeart(){
+const heart = document.createElement("div");
+heart.classList.add("heart");
+heart.style.left = Math.random() * 100 + "vw";
+heart.style.animationDuration = (Math.random()*3+3)+"s";
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+}
+
+setInterval(createHeart,300);
+</script>
+
+</body>
+</html>

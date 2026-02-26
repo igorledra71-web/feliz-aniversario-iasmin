@@ -22,7 +22,6 @@ color:white;
 background:linear-gradient(-45deg,#ff4e8b,#ff758c,#ff7eb3,#ffb199);
 background-size:400% 400%;
 animation:gradient 10s ease infinite;
-transition:2s;
 }
 
 @keyframes gradient{
@@ -34,7 +33,8 @@ transition:2s;
 .container{
 width:90%;
 max-width:800px;
-z-index:2;
+z-index:10;
+position:relative;
 }
 
 h1{
@@ -46,7 +46,7 @@ margin-bottom:20px;
 .message{
 font-size:20px;
 line-height:1.8;
-min-height:160px;
+min-height:150px;
 }
 
 button{
@@ -66,7 +66,18 @@ button:hover{
 transform:scale(1.1);
 }
 
-/* UNIVERSO */
+.fade{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+opacity:0;
+pointer-events:none;
+transition:2s;
+z-index:5;
+}
 
 .star{
 position:absolute;
@@ -78,20 +89,8 @@ animation:blink 2s infinite alternate;
 }
 
 @keyframes blink{
-from{opacity:0.3;}
+from{opacity:0.2;}
 to{opacity:1;}
-}
-
-.fade-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
-opacity:0;
-transition:4s;
-z-index:5;
 }
 
 .constellation{
@@ -103,7 +102,8 @@ font-family:'Dancing Script',cursive;
 font-size:90px;
 opacity:0;
 text-shadow:0 0 10px white,0 0 30px white,0 0 60px white;
-transition:4s;
+transition:3s;
+z-index:20;
 }
 </style>
 </head>
@@ -112,10 +112,10 @@ transition:4s;
 <div class="container" id="startScreen">
 <h1>Feliz Aniversário 💖</h1>
 <div class="message" id="initialText"></div>
-<button onclick="enterUniverse()">🌙 Entrar no Nosso Universo ✨</button>
+<button id="enterBtn">🌙 Entrar no Nosso Universo ✨</button>
 </div>
 
-<div class="fade-overlay" id="fade"></div>
+<div class="fade" id="fade"></div>
 <div class="constellation" id="name">IASMIN</div>
 
 <audio id="music" loop>
@@ -124,8 +124,7 @@ transition:4s;
 
 <script>
 
-/* MENSAGEM INICIAL */
-
+// MENSAGEM INICIAL
 const initialMessage = `
 Hoje é um dia especial...
 
@@ -145,29 +144,21 @@ setTimeout(typeInitial,40);
 }
 typeInitial();
 
-/* ENTRAR NO UNIVERSO */
+// BOTÃO
+document.getElementById("enterBtn").addEventListener("click", function(){
 
-function enterUniverse(){
+// escurecer
+let fade = document.getElementById("fade");
+fade.style.opacity = 1;
 
-// tocar música
-document.getElementById("music").play();
-
-// escurecer tela
-document.getElementById("fade").style.opacity = 1;
-
-// remover tela inicial
+// após escurecer
 setTimeout(()=>{
-document.getElementById("startScreen").style.display="none";
-document.body.style.background="black";
-},2000);
 
-// clarear devagar
-setTimeout(()=>{
-document.getElementById("fade").style.opacity = 0;
-},2500);
+document.getElementById("startScreen").remove();
+document.body.style.background = "black";
+fade.style.opacity = 0;
 
 // criar estrelas
-setTimeout(()=>{
 for(let i=0;i<250;i++){
 let star = document.createElement("div");
 star.classList.add("star");
@@ -176,17 +167,18 @@ star.style.left = Math.random()*100+"vw";
 star.style.animationDuration = (Math.random()*3+1)+"s";
 document.body.appendChild(star);
 }
-},3000);
 
-// nova mensagem
-setTimeout(()=>{
+// tocar música
+document.getElementById("music").play();
+
+// mostrar mensagem do universo
 showUniverseMessage();
-},3500);
 
-}
+},2000);
 
-/* MENSAGEM UNIVERSO */
+});
 
+// MENSAGEM UNIVERSO
 function showUniverseMessage(){
 
 let universeText = `
@@ -208,7 +200,7 @@ porque ele sabe
 que é o aniversário
 do amor da minha vida.
 
-Eu te amo infinitamente ❤️
+Eu te amo infinitamente, amor ❤️
 `;
 
 let container = document.createElement("div");
@@ -220,7 +212,7 @@ container.style.width="90%";
 container.style.maxWidth="800px";
 container.style.fontSize="22px";
 container.style.lineHeight="1.8";
-container.style.zIndex="10";
+container.style.zIndex="15";
 document.body.appendChild(container);
 
 let j = 0;
@@ -236,7 +228,6 @@ document.getElementById("name").style.opacity = 1;
 }
 }
 typeUniverse();
-
 }
 
 </script>

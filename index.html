@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Aniversário Iasmin ❤️</title>
+<title>Feliz Aniversário Meu Amor ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
@@ -14,14 +14,14 @@ body{
 height:100vh;
 overflow:hidden;
 font-family:'Poppins',sans-serif;
-background:linear-gradient(-45deg,#ff4e8b,#ff758c,#ff7eb3,#ffb199);
-background-size:400% 400%;
-animation:gradient 10s ease infinite;
 display:flex;
 justify-content:center;
 align-items:center;
-color:white;
 text-align:center;
+color:white;
+background:linear-gradient(-45deg,#ff4e8b,#ff758c,#ff7eb3,#ffb199);
+background-size:400% 400%;
+animation:gradient 10s ease infinite;
 transition:2s;
 }
 
@@ -39,15 +39,14 @@ z-index:2;
 
 h1{
 font-family:'Dancing Script',cursive;
-font-size:60px;
+font-size:55px;
 margin-bottom:20px;
-animation:fadeIn 2s ease forwards;
 }
 
 .message{
 font-size:20px;
 line-height:1.8;
-min-height:180px;
+min-height:160px;
 }
 
 button{
@@ -67,12 +66,8 @@ button:hover{
 transform:scale(1.1);
 }
 
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(30px);}
-to{opacity:1; transform:translateY(0);}
-}
+/* UNIVERSO */
 
-/* ESTRELAS */
 .star{
 position:absolute;
 width:2px;
@@ -83,34 +78,44 @@ animation:blink 2s infinite alternate;
 }
 
 @keyframes blink{
-from{opacity:0.2;}
+from{opacity:0.3;}
 to{opacity:1;}
 }
 
-/* CONSTELAÇÃO */
+.fade-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+opacity:0;
+transition:4s;
+z-index:5;
+}
+
 .constellation{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
 font-family:'Dancing Script',cursive;
-font-size:80px;
-color:white;
+font-size:90px;
 opacity:0;
-transition:3s;
-text-shadow:0 0 10px white,0 0 20px white,0 0 40px #fff;
+text-shadow:0 0 10px white,0 0 30px white,0 0 60px white;
+transition:4s;
 }
-
 </style>
 </head>
 <body>
 
-<div class="container">
-<h1>Feliz Aniversário, Minha Princesa 💖</h1>
-<div class="message" id="text"></div>
+<div class="container" id="startScreen">
+<h1>Feliz Aniversário 💖</h1>
+<div class="message" id="initialText"></div>
 <button onclick="enterUniverse()">🌙 Entrar no Nosso Universo ✨</button>
 </div>
 
+<div class="fade-overlay" id="fade"></div>
 <div class="constellation" id="name">IASMIN</div>
 
 <audio id="music" loop>
@@ -118,39 +123,52 @@ text-shadow:0 0 10px white,0 0 20px white,0 0 40px #fff;
 </audio>
 
 <script>
-const message = `
-Hoje é o dia da pessoa mais especial da minha vida...
 
-Iasmin, você ilumina meus dias
-como estrelas iluminam o céu.
+/* MENSAGEM INICIAL */
 
-Mas agora...
-eu quero te mostrar algo diferente.
+const initialMessage = `
+Hoje é um dia especial...
 
-Clique abaixo
-e entre no nosso universo ❤️
+Mas o que eu sinto por você, amor,
+é maior que qualquer data.
+
+Eu preparei algo diferente pra você...
 `;
 
 let i = 0;
-const speed = 50;
-const textDiv = document.getElementById("text");
-
-function typeWriter(){
-if(i < message.length){
-textDiv.innerHTML += message.charAt(i);
+function typeInitial(){
+if(i < initialMessage.length){
+document.getElementById("initialText").innerHTML += initialMessage.charAt(i);
 i++;
-setTimeout(typeWriter, speed);
+setTimeout(typeInitial,40);
 }
 }
-typeWriter();
+typeInitial();
+
+/* ENTRAR NO UNIVERSO */
 
 function enterUniverse(){
 
-// mudar fundo
-document.body.style.background = "black";
+// tocar música
+document.getElementById("music").play();
+
+// escurecer tela
+document.getElementById("fade").style.opacity = 1;
+
+// remover tela inicial
+setTimeout(()=>{
+document.getElementById("startScreen").style.display="none";
+document.body.style.background="black";
+},2000);
+
+// clarear devagar
+setTimeout(()=>{
+document.getElementById("fade").style.opacity = 0;
+},2500);
 
 // criar estrelas
-for(let i=0;i<200;i++){
+setTimeout(()=>{
+for(let i=0;i<250;i++){
 let star = document.createElement("div");
 star.classList.add("star");
 star.style.top = Math.random()*100+"vh";
@@ -158,16 +176,69 @@ star.style.left = Math.random()*100+"vw";
 star.style.animationDuration = (Math.random()*3+1)+"s";
 document.body.appendChild(star);
 }
+},3000);
 
-// mostrar nome tipo constelação
+// nova mensagem
 setTimeout(()=>{
-document.getElementById("name").style.opacity = 1;
-},1500);
-
-// tocar música
-document.getElementById("music").play();
+showUniverseMessage();
+},3500);
 
 }
+
+/* MENSAGEM UNIVERSO */
+
+function showUniverseMessage(){
+
+let universeText = `
+Amor...
+
+Se o céu tivesse um nome,
+seria o seu.
+
+Se as estrelas soubessem amar,
+elas aprenderiam com você.
+
+Você é meu abrigo,
+meu sorriso,
+minha paz,
+meu futuro inteiro, amor.
+
+Hoje o universo brilha diferente,
+porque ele sabe
+que é o aniversário
+do amor da minha vida.
+
+Eu te amo infinitamente ❤️
+`;
+
+let container = document.createElement("div");
+container.style.position="absolute";
+container.style.top="50%";
+container.style.left="50%";
+container.style.transform="translate(-50%,-50%)";
+container.style.width="90%";
+container.style.maxWidth="800px";
+container.style.fontSize="22px";
+container.style.lineHeight="1.8";
+container.style.zIndex="10";
+document.body.appendChild(container);
+
+let j = 0;
+function typeUniverse(){
+if(j < universeText.length){
+container.innerHTML += universeText.charAt(j);
+j++;
+setTimeout(typeUniverse,45);
+}else{
+setTimeout(()=>{
+document.getElementById("name").style.opacity = 1;
+},2000);
+}
+}
+typeUniverse();
+
+}
+
 </script>
 
 </body>

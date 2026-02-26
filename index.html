@@ -94,7 +94,7 @@ from{opacity:0.3;}
 to{opacity:1;}
 }
 
-/* NOME */
+/* NOME FINAL */
 .name-final{
 margin-top:40px;
 font-family:'Dancing Script',cursive;
@@ -142,7 +142,7 @@ function typeInitial(){
 if(i < initialMessage.length){
 document.getElementById("initialText").innerHTML += initialMessage.charAt(i);
 i++;
-setTimeout(typeInitial,40);
+setTimeout(typeInitial,60);
 }
 }
 typeInitial();
@@ -159,7 +159,7 @@ document.getElementById("startScreen").remove();
 document.body.style.background = "black";
 fade.style.opacity = 0;
 
-// criar estrelas com movimento
+// criar estrelas com movimento suave
 for(let i=0;i<250;i++){
 let star = document.createElement("div");
 star.classList.add("star");
@@ -167,15 +167,15 @@ star.classList.add("star");
 star.style.top = Math.random()*100+"vh";
 star.style.left = Math.random()*100+"vw";
 
-let moveX = (Math.random()-0.5)*0.2;
-let moveY = (Math.random()-0.5)*0.2;
+let moveX = (Math.random()-0.5)*0.15;
+let moveY = (Math.random()-0.5)*0.15;
 
 setInterval(()=>{
 let top = parseFloat(star.style.top);
 let left = parseFloat(star.style.left);
 star.style.top = (top + moveY) + "vh";
 star.style.left = (left + moveX) + "vw";
-},50);
+},60);
 
 document.body.appendChild(star);
 }
@@ -188,17 +188,17 @@ showUniverseMessage();
 
 });
 
-// MENSAGEM UNIVERSO
+// MENSAGEM UNIVERSO (MAIS LENTA)
 function showUniverseMessage(){
 
 let universeText = `
 Amor...
 
 Se o céu tivesse um nome,
-seria o seu.
+seria o seu, amor.
 
 Se as estrelas soubessem amar,
-elas aprenderiam com você.
+elas aprenderiam com você, amor.
 
 Você é meu abrigo,
 meu sorriso,
@@ -230,7 +230,7 @@ function typeUniverse(){
 if(j < universeText.length){
 container.innerHTML += universeText.charAt(j);
 j++;
-setTimeout(typeUniverse,45);
+setTimeout(typeUniverse,100); // MAIS LENTO
 }else{
 showName(container);
 }

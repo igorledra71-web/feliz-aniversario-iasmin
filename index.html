@@ -21,7 +21,8 @@ text-align:center;
 color:white;
 background:linear-gradient(-45deg,#ff4e8b,#ff758c,#ff7eb3,#ffb199);
 background-size:400% 400%;
-animation:gradient 10s ease infinite;
+animation:gradient 12s ease infinite;
+position:relative;
 }
 
 @keyframes gradient{
@@ -66,6 +67,39 @@ button:hover{
 transform:scale(1.1);
 }
 
+/* CORAÇÕES FUNDO INICIAL */
+.heart{
+position:absolute;
+width:20px;
+height:20px;
+background:rgba(255,255,255,0.15);
+transform:rotate(45deg);
+animation:floatUp linear infinite;
+border-radius:3px;
+filter:blur(1px);
+}
+
+.heart:before,
+.heart:after{
+content:"";
+position:absolute;
+width:20px;
+height:20px;
+background:rgba(255,255,255,0.15);
+border-radius:50%;
+}
+
+.heart:before{top:-10px;left:0;}
+.heart:after{left:-10px;top:0;}
+
+@keyframes floatUp{
+0%{transform:translateY(100vh) rotate(45deg);opacity:0;}
+20%{opacity:0.4;}
+80%{opacity:0.4;}
+100%{transform:translateY(-10vh) rotate(45deg);opacity:0;}
+}
+
+/* FADE */
 .fade{
 position:fixed;
 top:0;
@@ -127,7 +161,19 @@ to{transform:scale(1.05); opacity:1;}
 
 <script>
 
-// MENSAGEM INICIAL
+/* CORAÇÕES INICIAIS */
+function createHeart(){
+let heart = document.createElement("div");
+heart.classList.add("heart");
+heart.style.left = Math.random()*100+"vw";
+heart.style.animationDuration = (Math.random()*5+6)+"s";
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove();},10000);
+}
+setInterval(createHeart,800);
+
+/* MENSAGEM INICIAL */
 const initialMessage = `
 Hoje é um dia especial...
 
@@ -142,12 +188,12 @@ function typeInitial(){
 if(i < initialMessage.length){
 document.getElementById("initialText").innerHTML += initialMessage.charAt(i);
 i++;
-setTimeout(typeInitial,60);
+setTimeout(typeInitial,70);
 }
 }
 typeInitial();
 
-// BOTÃO
+/* BOTÃO */
 document.getElementById("enterBtn").addEventListener("click", function(){
 
 let fade = document.getElementById("fade");
@@ -159,7 +205,10 @@ document.getElementById("startScreen").remove();
 document.body.style.background = "black";
 fade.style.opacity = 0;
 
-// criar estrelas com movimento suave
+// remover corações
+document.querySelectorAll(".heart").forEach(h=>h.remove());
+
+// criar estrelas
 for(let i=0;i<250;i++){
 let star = document.createElement("div");
 star.classList.add("star");
@@ -188,7 +237,7 @@ showUniverseMessage();
 
 });
 
-// MENSAGEM UNIVERSO (MAIS LENTA)
+/* MENSAGEM UNIVERSO */
 function showUniverseMessage(){
 
 let universeText = `
@@ -230,7 +279,7 @@ function typeUniverse(){
 if(j < universeText.length){
 container.innerHTML += universeText.charAt(j);
 j++;
-setTimeout(typeUniverse,100); // MAIS LENTO
+setTimeout(typeUniverse,100);
 }else{
 showName(container);
 }
@@ -239,20 +288,15 @@ typeUniverse();
 }
 
 function showName(container){
-
 let name = document.createElement("div");
 name.classList.add("name-final");
 name.innerHTML = "IASMIN";
 container.appendChild(name);
 
-setTimeout(()=>{
-name.style.opacity = 1;
-},500);
-
+setTimeout(()=>{name.style.opacity = 1;},500);
 }
 
 </script>
 
 </body>
 </html>
-
